@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c135g6jbyw8yr"]
+[gd_scene load_steps=16 format=3 uid="uid://c135g6jbyw8yr"]
 
 [ext_resource type="PackedScene" uid="uid://btiokf0xsoiv6" path="res://scenes/player.tscn" id="1_whrjg"]
 [ext_resource type="PackedScene" uid="uid://ctpmfkbea7jre" path="res://scenes/fleeing_enemy.tscn" id="2_1xo34"]
@@ -6,6 +6,12 @@
 [ext_resource type="AudioStream" uid="uid://8cv0lxqvcd28" path="res://cobweb.wav" id="4_kdyc3"]
 [ext_resource type="Script" uid="uid://c5421omlvyqwv" path="res://scenes/cob_web.gd" id="5_4synu"]
 [ext_resource type="Script" uid="uid://whruj6w36oga" path="res://scenes/cob_web_rotation.gd" id="6_4synu"]
+[ext_resource type="PackedScene" uid="uid://uobovftvmdsd" path="res://Assets/tree1.fbx" id="7_cyf2o"]
+[ext_resource type="PackedScene" uid="uid://da2sw6yd4xit3" path="res://Assets/tree2.fbx" id="8_cyt25"]
+[ext_resource type="PackedScene" uid="uid://c3irjhk0r1qoj" path="res://Assets/tree3.fbx" id="9_ubaj7"]
+[ext_resource type="PackedScene" uid="uid://bdl8k2f026gmg" path="res://Assets/rock1.fbx" id="10_sa572"]
+[ext_resource type="PackedScene" uid="uid://dcnyg2y6joun5" path="res://Assets/rock2.fbx" id="11_rk4p5"]
+[ext_resource type="PackedScene" uid="uid://em1jioxtsh4r" path="res://Assets/rock3.fbx" id="12_7tq10"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1xo34"]
 sky_horizon_color = Color(0.857599, 0.861711, 0.870478, 1)
@@ -31,7 +37,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8412, -0.242056, -6.24836)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8412, -0.242056, -6.24836)
 use_collision = true
 size = Vector3(81.1717, 0.327026, 69.5283)
 
@@ -91,3 +97,91 @@ visible = false
 
 [node name="CobWebRotation2" type="AudioStreamPlayer2D" parent="CobWeb2"]
 script = ExtResource("6_4synu")
+
+[node name="TreeAndRocks" type="Node" parent="."]
+
+[node name="tree1" parent="TreeAndRocks" instance=ExtResource("7_cyf2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.64135, -2.07534, -18.7329)
+
+[node name="tree2" parent="TreeAndRocks" instance=ExtResource("8_cyt25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.6456, -1.8825, 13.026)
+
+[node name="tree3" parent="TreeAndRocks" instance=ExtResource("9_ubaj7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6673, -1.45181, 18.005)
+
+[node name="tree4" parent="TreeAndRocks" instance=ExtResource("7_cyf2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0573, -0.974195, -35.4731)
+
+[node name="tree5" parent="TreeAndRocks" instance=ExtResource("8_cyt25")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -5.35736, -1.14781, -27.0172)
+
+[node name="tree6" parent="TreeAndRocks" instance=ExtResource("9_ubaj7")]
+transform = Transform3D(0.820409, 0, 0, 0, 0.944668, 0, 0, 0, 0.64557, 43.4808, -1.45181, 5.77697)
+
+[node name="rock1" parent="TreeAndRocks" instance=ExtResource("10_sa572")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3884, 0.29242, -19.8089)
+
+[node name="rock2" parent="TreeAndRocks" instance=ExtResource("11_rk4p5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17.689, 0.101555, -3.34715)
+
+[node name="rock3" parent="TreeAndRocks" instance=ExtResource("12_7tq10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.7904, -0.160848, -13.7962)
+
+[node name="rock4" parent="TreeAndRocks" instance=ExtResource("10_sa572")]
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 16.5137, 0.29242, -3.22769)
+
+[node name="rock5" parent="TreeAndRocks" instance=ExtResource("12_7tq10")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 20.5167, -0.160852, -21.2014)
+
+[node name="rock6" parent="TreeAndRocks" instance=ExtResource("11_rk4p5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9864, 0.101551, -18.8651)
+
+[node name="rock7" parent="TreeAndRocks" instance=ExtResource("11_rk4p5")]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -16.3277, 0.101551, -12.8989)
+
+[node name="rock8" parent="TreeAndRocks" instance=ExtResource("12_7tq10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30117, -0.160852, 19.1114)
+
+[node name="rock9" parent="TreeAndRocks" instance=ExtResource("10_sa572")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0547457, 0.292424, 20.3591)
+
+[node name="rock10" parent="TreeAndRocks" instance=ExtResource("12_7tq10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.83806, -0.160852, 17.1039)
+
+[node name="tree7" parent="TreeAndRocks" instance=ExtResource("9_ubaj7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.56772, -1.45181, -26.7812)
+
+[node name="tree8" parent="TreeAndRocks" instance=ExtResource("7_cyf2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2323, -0.974199, -27.958)
+
+[node name="tree9" parent="TreeAndRocks" instance=ExtResource("8_cyt25")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 38.2737, -1.14781, -13.48)
+
+[node name="tree10" parent="TreeAndRocks" instance=ExtResource("9_ubaj7")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 11.7871, -2.48084, 25.2622)
+
+[node name="tree11" parent="TreeAndRocks" instance=ExtResource("7_cyf2o")]
+transform = Transform3D(0.716882, -0.0452882, -0.613913, 0.0521896, 0.998353, 3.72529e-09, 0.557535, -0.0352217, 0.789373, 48.1607, -0.956873, 13.6542)
+
+[node name="rock11" parent="TreeAndRocks" instance=ExtResource("12_7tq10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, 6)
+
+[node name="rock12" parent="TreeAndRocks" instance=ExtResource("11_rk4p5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 0, 14)
+
+[node name="rock13" parent="TreeAndRocks" instance=ExtResource("10_sa572")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 7)
+
+[node name="tree12" parent="TreeAndRocks" instance=ExtResource("9_ubaj7")]
+transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 0.8, 16.5939, 0.0750688, -18.3086)
+
+[node name="rock14" parent="TreeAndRocks" instance=ExtResource("12_7tq10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 19)
+
+[node name="rock15" parent="TreeAndRocks" instance=ExtResource("11_rk4p5")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 28, -3, 19)
+
+[node name="rock16" parent="TreeAndRocks" instance=ExtResource("10_sa572")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 20)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]

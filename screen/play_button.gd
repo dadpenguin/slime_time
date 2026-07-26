@@ -1,4 +1,4 @@
-extends TextureButton # Use 'extends TextureButton' if using TextureButton
+extends TextureButton# Use 'extends TextureButton' if using TextureButton
 
 func _on_button_down():
 	print("Button pressed!")

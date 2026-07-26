@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="slime_machine"
-run/main_scene="uid://dum2o28obq3bc"
+run/main_scene="uid://oaawhsaqd2yq"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

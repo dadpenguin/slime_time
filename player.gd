@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 # Path to your finish screen scene
-const FINISH_SCREEN_PATH = "res://screens/finish.tscn"
+const FINISH_SCREEN_PATH = "res://screen/win_menu.tscn"
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5

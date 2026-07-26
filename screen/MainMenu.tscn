@@ -94,6 +94,7 @@ size_flags_horizontal = 0
 texture_normal = ExtResource("2_d1qdb")
 
 [node name="MusicButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 texture_normal = ExtResource("3_3bnw4")
 

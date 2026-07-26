@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctpmfkbea7jre"]
+
+[ext_resource type="Script" uid="uid://10hfn24qe0xv" path="res://fleeing_enemy.gd" id="1_1i3ul"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1i3ul"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lvme3"]
+
+[node name="FleeingEnemy" type="CharacterBody3D"]
+script = ExtResource("1_1i3ul")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1i3ul")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_lvme3")
+
+[node name="Rays" type="Node3D" parent="."]
+
+[node name="RayFront" type="RayCast3D" parent="Rays"]
+target_position = Vector3(0, 0, -2.5)
+
+[node name="RayLeft" type="RayCast3D" parent="Rays"]
+target_position = Vector3(-1.8, 0, -2)
+
+[node name="RayRight" type="RayCast3D" parent="Rays"]
+target_position = Vector3(1.8, 0, -2)

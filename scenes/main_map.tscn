@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c135g6jbyw8yr"]
+[gd_scene load_steps=10 format=3 uid="uid://c135g6jbyw8yr"]
 
 [ext_resource type="PackedScene" uid="uid://btiokf0xsoiv6" path="res://scenes/player.tscn" id="1_whrjg"]
 [ext_resource type="PackedScene" uid="uid://ctpmfkbea7jre" path="res://scenes/fleeing_enemy.tscn" id="2_1xo34"]
+[ext_resource type="AudioStream" uid="uid://cwg411s3717rh" path="res://slime thme song.wav" id="3_eqscl"]
+[ext_resource type="AudioStream" uid="uid://8cv0lxqvcd28" path="res://cobweb.wav" id="4_kdyc3"]
+[ext_resource type="Script" uid="uid://c5421omlvyqwv" path="res://scenes/cob_web.gd" id="5_4synu"]
+[ext_resource type="Script" uid="uid://whruj6w36oga" path="res://scenes/cob_web_rotation.gd" id="6_4synu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1xo34"]
 sky_horizon_color = Color(0.857599, 0.861711, 0.870478, 1)
@@ -69,3 +73,21 @@ player = NodePath("../Player")
 [node name="FleeingEnemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -10.905)
 player = NodePath("../Player")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_eqscl")
+volume_db = -15.0
+autoplay = true
+
+[node name="CobWeb" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kdyc3")
+volume_db = -10.0
+script = ExtResource("5_4synu")
+
+[node name="CobWeb2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96281, 0)
+visible = false
+
+[node name="CobWebRotation2" type="AudioStreamPlayer2D" parent="CobWeb2"]
+script = ExtResource("6_4synu")

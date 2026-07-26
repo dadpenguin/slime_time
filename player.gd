@@ -6,22 +6,44 @@ const FINISH_SCREEN_PATH = "res://screens/finish.tscn"
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY = 0.003
-const CAPTURE_RANGE: float = 3.5 # Maximum distance to capture
+const CAPTURE_RANGE: float = 3.5
 
 @onready var head: Node3D = $Head
-@onready var ray_cast: RayCast3D = $Head/RayCast3D # Make sure your RayCast3D is here!
+@onready var ray_cast: RayCast3D = $Head/RayCast3D
+
+# UI Reference (Make sure your Label has 'Access as Unique Name' enabled)
+@onready var timer_label: Label = $"../HUD/%TimerLabel"
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var score: int = 0
 var total_enemies: int = 0
 
+# Countdown Timer variables
+var time_left: float = 25.0
+var game_over: bool = false
+
 func _ready() -> void:
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
     
-    # Automatically count all enemies in the scene at start
-    # Make sure your enemy nodes belong to the "enemies" group!
+    GameManager.reset_game()
+    
     total_enemies = get_tree().get_nodes_in_group("enemies").size()
+    GameManager.max_enemies = total_enemies
     print("Total enemies to capture: ", total_enemies)
+
+func _process(delta: float) -> void:
+    if game_over:
+        return
+        
+    # Tick down the timer
+    time_left -= delta
+    if time_left <= 0.0:
+        time_left = 0.0
+        finish_game(false) # Timer ran out -> LOST
+    
+    # Update the on-screen HUD timer label
+    if timer_label:
+        timer_label.text = "Time Left: " + str(snapped(time_left, 0.1)) + "s"
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
@@ -54,12 +76,14 @@ func _physics_process(delta: float) -> void:
 
     move_and_slide()
 
-# Left-click input handler
 func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
         try_capture()
 
 func try_capture() -> void:
+    if game_over:
+        return
+
     ray_cast.force_raycast_update()
     
     if ray_cast.is_colliding():
@@ -68,21 +92,21 @@ func try_capture() -> void:
         
         if distance <= CAPTURE_RANGE:
             if hit_object.has_method("get_captured"):
-                # get_captured() returns true only if it wasn't captured before
                 var was_new_capture: bool = hit_object.get_captured()
                 
                 if was_new_capture:
                     score += 1
                     print("New Capture! Score: ", score, "/", total_enemies)
                     
-                    # Trigger win condition when score hits total enemy count
                     if score >= total_enemies and total_enemies > 0:
-                        finish_game()
+                        finish_game(true)
 
-func finish_game() -> void:
-    print("All enemies captured! Switching to finish screen...")
-    # Release the mouse so the player can interact with UI buttons
-    Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+func finish_game(won: bool) -> void:
+    game_over = true
     
-    # Load the finish screen
+    GameManager.is_win = won
+    GameManager.total_captured = score
+    GameManager.time_left = time_left
+    
+    Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
     get_tree().change_scene_to_file(FINISH_SCREEN_PATH)

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cfg7abh08n1ew"
-path="res://.godot/imported/Imported Spider Web.fbx-c27b9cae5154789ec1183d2407a293ed.scn"
+uid="uid://pj7dx82o232e"
+path="res://.godot/imported/Slime.fbx-1362f12853731a29524762f439507fc5.scn"
 
 [deps]
 
-source_file="res://models/Imported Spider Web.fbx"
-dest_files=["res://.godot/imported/Imported Spider Web.fbx-c27b9cae5154789ec1183d2407a293ed.scn"]
+source_file="res://Slime.fbx"
+dest_files=["res://.godot/imported/Slime.fbx-1362f12853731a29524762f439507fc5.scn"]
 
 [params]
 

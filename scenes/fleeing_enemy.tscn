@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctpmfkbea7jre"]
+[gd_scene load_steps=5 format=3 uid="uid://ctpmfkbea7jre"]
 
 [ext_resource type="Script" uid="uid://10hfn24qe0xv" path="res://fleeing_enemy.gd" id="1_1i3ul"]
+[ext_resource type="PackedScene" uid="uid://pj7dx82o232e" path="res://Slime.fbx" id="2_lvme3"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1i3ul"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lvjqw"]
+height = 0.970215
+radius = 0.69043
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lvme3"]
 
@@ -10,9 +13,11 @@
 script = ExtResource("1_1i3ul")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_1i3ul")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.517851, 0)
+shape = SubResource("CylinderShape3D_lvjqw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_lvme3")
 
 [node name="Rays" type="Node3D" parent="."]
@@ -25,3 +30,6 @@ target_position = Vector3(-1.8, 0, -2)
 
 [node name="RayRight" type="RayCast3D" parent="Rays"]
 target_position = Vector3(1.8, 0, -2)
+
+[node name="Slime" parent="." instance=ExtResource("2_lvme3")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -0.0315928, -0.729869, -0.0214438)

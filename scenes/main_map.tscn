@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkq6t7srsexa4"]
+
+[ext_resource type="PackedScene" uid="uid://btiokf0xsoiv6" path="res://scenes/player.tscn" id="1_whrjg"]
+[ext_resource type="PackedScene" uid="uid://ctpmfkbea7jre" path="res://scenes/fleeing_enemy.tscn" id="2_1xo34"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1xo34"]
+sky_horizon_color = Color(0.857599, 0.861711, 0.870478, 1)
+ground_bottom_color = Color(0.394782, 0.342228, 0.281297, 1)
+ground_horizon_color = Color(0.857599, 0.861711, 0.870478, 1)
+energy_multiplier = 2.65
+
+[sub_resource type="Sky" id="Sky_eqscl"]
+sky_material = SubResource("ProceduralSkyMaterial_1xo34")
+
+[sub_resource type="Environment" id="Environment_uxg3y"]
+background_mode = 2
+sky = SubResource("Sky_eqscl")
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uxg3y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8412, -0.242056, -6.24836)
+use_collision = true
+size = Vector3(81.1717, 0.327026, 69.5283)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.999972, 0, -0.00748739, 0, 1, 0, 0.00748739, 0, 0.999972, 12.8412, 2.73756, 28.1361)
+use_collision = true
+size = Vector3(81.1717, 5.75949, 0.273678)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(0.999972, 0, -0.00748739, 0, 1, 0, 0.00748739, 0, 0.999972, 12.8412, 2.73756, -39.4685)
+use_collision = true
+size = Vector3(81.1717, 5.75949, 0.273678)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.0210297, 0, 0.999779, 0, 1, 0, -0.999779, 0, -0.0210297, -26.5062, 2.73756, -4.58457)
+use_collision = true
+size = Vector3(73.574, 5.75949, 0.273678)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.0210297, 0, 0.999779, 0, 1, 0, -0.999779, 0, -0.0210297, 53.0745, 2.73756, -4.58457)
+use_collision = true
+size = Vector3(73.574, 5.75949, 0.273678)
+
+[node name="Player" parent="." instance=ExtResource("1_whrjg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.955776, 0)
+
+[node name="FleeingEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -5)
+player = NodePath("../Player")
+
+[node name="FleeingEnemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.32977, 1, -5)
+player = NodePath("../Player")
+
+[node name="FleeingEnemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.66887, 1, -5)
+player = NodePath("../Player")
+
+[node name="FleeingEnemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -10.905)
+player = NodePath("../Player")

@@ -19,8 +19,15 @@ var is_resting: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_captured: bool = false
 
+# 1. Preload your FBX file from the project root
+# (If your cobweb.fbx is inside a folder like res://assets/cobweb.fbx, update the path below)
+const COBWEB_SCENE = preload("res://cobweb.fbx")
+
 func _ready() -> void:
 	current_stamina = MAX_STAMINA
+	
+	
+
 
 func _physics_process(delta: float) -> void:
 	
@@ -71,6 +78,8 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, SPRINT_SPEED)
 
 	move_and_slide()
+	
+	
 
 func avoid_obstacles(desired_dir: Vector3) -> Vector3:
 	if desired_dir.length() > 0.1:
@@ -96,19 +105,37 @@ func avoid_obstacles(desired_dir: Vector3) -> Vector3:
 
 # Called by the player's RayCast script
 func get_captured() -> bool:
-	# 1. If already captured, ignore subsequent clicks
 	if is_captured:
 		return false
 
-	# 2. Set captured state to true
 	is_captured = true
 	print("Slime captured!")
 
-	# 3. Create a unique red material and assign it to the mesh
+	# Turn mesh red
 	var red_material = StandardMaterial3D.new()
 	red_material.albedo_color = Color.RED
-	
-	# Apply to the active mesh surface
 	mesh_instance.material_override = red_material
 
+	# 2. Spawn the cobweb at the slime's position
+	spawn_cobweb()
+
 	return true
+
+func spawn_cobweb() -> void:
+	# Create an instance of the 3D model
+	var cobweb_instance = COBWEB_SCENE.instantiate()
+	
+	# Add it to the main scene tree (so it stays in place even if the enemy moves/deletes)
+	get_parent().add_child(cobweb_instance)
+	
+	# Set its position to match the slime
+	cobweb_instance.global_position = global_position
+	
+	# Move down on the Y axis
+	cobweb_instance.position.y -= 0.2
+	
+	# Set scale to (0.2, 0.2, 0.2)
+	cobweb_instance.scale = Vector3(0.2, 0.2, 0.2)
+	
+	# Flip upside down along the Z axis (180 degrees)
+	cobweb_instance.rotation_degrees.z = 180

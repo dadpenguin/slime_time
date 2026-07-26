@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lvme3"]
 
-[node name="FleeingEnemy" type="CharacterBody3D"]
+[node name="FleeingEnemy" type="CharacterBody3D" groups=["enemies"]]
 script = ExtResource("1_1i3ul")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

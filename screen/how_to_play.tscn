@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf6s0yaf0342b"]
+
+[ext_resource type="Texture2D" uid="uid://bhe4jl1iuqi8q" path="res://Screen stuff/Slime  Time.png" id="1_h2ja4"]
+[ext_resource type="Texture2D" uid="uid://brsbtdosvu75j" path="res://Screen stuff/HowToPlay.png" id="2_fj6e2"]
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Slime Time" type="Sprite2D" parent="."]
+position = Vector2(931, 165)
+scale = Vector2(0.451076, 0.451076)
+texture = ExtResource("1_h2ja4")
+
+[node name="HowToPlay" type="Sprite2D" parent="."]
+position = Vector2(340, 315)
+scale = Vector2(0.596732, 0.596732)
+texture = ExtResource("2_fj6e2")

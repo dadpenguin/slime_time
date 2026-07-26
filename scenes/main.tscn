@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c135g6jbyw8yr"]
 
-[ext_resource type="PackedScene" uid="uid://btiokf0xsoiv6" path="res://scenes/player.tscn" id="1_whrjg"]
-[ext_resource type="PackedScene" uid="uid://ctpmfkbea7jre" path="res://scenes/fleeing_enemy.tscn" id="2_1xo34"]
+[ext_resource type="PackedScene" uid="uid://btiokf0xsoiv6" path="res://scenes/player.tscn" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://ctpmfkbea7jre" path="res://scenes/fleeing_enemy.tscn" id="2_sugp2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1xo34"]
 sky_horizon_color = Color(0.857599, 0.861711, 0.870478, 1)
@@ -14,7 +14,10 @@ sky_material = SubResource("ProceduralSkyMaterial_1xo34")
 
 [sub_resource type="Environment" id="Environment_uxg3y"]
 background_mode = 2
+background_energy_multiplier = 0.37
 sky = SubResource("Sky_eqscl")
+ambient_light_color = Color(0.284615, 0.166829, 0.379322, 1)
+ambient_light_energy = 2.1
 glow_enabled = true
 
 [node name="Node3D" type="Node3D"]
@@ -25,6 +28,7 @@ environment = SubResource("Environment_uxg3y")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+shadow_bias = 0.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8412, -0.242056, -6.24836)
@@ -51,21 +55,31 @@ transform = Transform3D(-0.0210297, 0, 0.999779, 0, 1, 0, -0.999779, 0, -0.02102
 use_collision = true
 size = Vector3(73.574, 5.75949, 0.273678)
 
-[node name="Player" parent="." instance=ExtResource("1_whrjg")]
+[node name="Player" parent="." instance=ExtResource("1_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.955776, 0)
 
-[node name="FleeingEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+[node name="FleeingEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -5)
 player = NodePath("../Player")
 
-[node name="FleeingEnemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+[node name="FleeingEnemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.32977, 1, -5)
 player = NodePath("../Player")
 
-[node name="FleeingEnemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+[node name="FleeingEnemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.66887, 1, -5)
 player = NodePath("../Player")
 
-[node name="FleeingEnemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1xo34")]
+[node name="FleeingEnemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -10.905)
 player = NodePath("../Player")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TimerLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 37
+text = "Timer here"

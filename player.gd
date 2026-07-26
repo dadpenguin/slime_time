@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+# Path to your finish screen scene
+const FINISH_SCREEN_PATH = "res://screens/finish.tscn"
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY = 0.003
@@ -10,9 +13,15 @@ const CAPTURE_RANGE: float = 3.5 # Maximum distance to capture
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var score: int = 0
+var total_enemies: int = 0
 
 func _ready() -> void:
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+    
+    # Automatically count all enemies in the scene at start
+    # Make sure your enemy nodes belong to the "enemies" group!
+    total_enemies = get_tree().get_nodes_in_group("enemies").size()
+    print("Total enemies to capture: ", total_enemies)
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
@@ -64,4 +73,16 @@ func try_capture() -> void:
                 
                 if was_new_capture:
                     score += 1
-                    print("New Capture! Total Score: ", score)
+                    print("New Capture! Score: ", score, "/", total_enemies)
+                    
+                    # Trigger win condition when score hits total enemy count
+                    if score >= total_enemies and total_enemies > 0:
+                        finish_game()
+
+func finish_game() -> void:
+    print("All enemies captured! Switching to finish screen...")
+    # Release the mouse so the player can interact with UI buttons
+    Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+    
+    # Load the finish screen
+    get_tree().change_scene_to_file(FINISH_SCREEN_PATH)

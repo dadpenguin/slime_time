@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="slime_machine"
-run/main_scene="uid://c135g6jbyw8yr"
+run/main_scene="uid://dum2o28obq3bc"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[global_group]
+
+enemies=""
 
 [input]
 

@@ -73,3 +73,13 @@ player = NodePath("../Player")
 [node name="FleeingEnemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -10.905)
 player = NodePath("../Player")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TimerLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 37
+text = "Timer here"

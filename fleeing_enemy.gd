@@ -2,8 +2,9 @@ extends CharacterBody3D
 
 @export var SPRINT_SPEED: float = 3.5
 @export var TIRED_SPEED: float = 2.5 # Slower than the player!
-@export var MAX_STAMINA: float = 2.0   # Can sprint for 3 seconds
+@export var MAX_STAMINA: float = 2.0   # Can sprint for 2 seconds
 @export var FLEE_DISTANCE: float = 12.0
+@export var JUMP_VELOCITY: float = 4.5 # Height/force of each slime hop
 @export var player: Node3D
 
 @onready var rays_node: Node3D = $Rays
@@ -19,25 +20,18 @@ var is_resting: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_captured: bool = false
 
-# 1. Preload your FBX file from the project root
-# (If your cobweb.fbx is inside a folder like res://assets/cobweb.fbx, update the path below)
 const COBWEB_SCENE = preload("res://cobweb.fbx")
 
 func _ready() -> void:
 	current_stamina = MAX_STAMINA
-	
-	
-
 
 func _physics_process(delta: float) -> void:
-	
-	# If captured, stop physics & movement entirely
+	# If captured, freeze ALL velocity completely and skip movement physics
 	if is_captured:
-		velocity.x = 0
-		velocity.z = 0
-		move_and_slide()
+		velocity = Vector3.ZERO
 		return
 	
+	# Apply gravity when in mid-air
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
@@ -71,6 +65,12 @@ func _physics_process(delta: float) -> void:
 				var look_target = global_position + final_dir
 				if global_position.distance_squared_to(look_target) > 0.001:
 					look_at(look_target, Vector3.UP)
+
+			# --- SLIME HOPPING MECHANIC ---
+			# Whenever the slime touches the ground while fleeing, bounce back up!
+			if is_on_floor():
+				velocity.y = JUMP_VELOCITY
+
 		else:
 			# Recover stamina when player drops back
 			current_stamina = move_toward(current_stamina, MAX_STAMINA, delta)
@@ -78,8 +78,6 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, SPRINT_SPEED)
 
 	move_and_slide()
-	
-	
 
 func avoid_obstacles(desired_dir: Vector3) -> Vector3:
 	if desired_dir.length() > 0.1:
@@ -101,14 +99,15 @@ func avoid_obstacles(desired_dir: Vector3) -> Vector3:
 
 	return steer.normalized()
 
-
-
 # Called by the player's RayCast script
 func get_captured() -> bool:
 	if is_captured:
 		return false
 
 	is_captured = true
+	
+	# Zero out velocity immediately upon capture
+	velocity = Vector3.ZERO
 	print("Slime captured!")
 
 	# Turn mesh red
@@ -116,26 +115,15 @@ func get_captured() -> bool:
 	red_material.albedo_color = Color.RED
 	mesh_instance.material_override = red_material
 
-	# 2. Spawn the cobweb at the slime's position
+	# Spawn cobweb
 	spawn_cobweb()
 
 	return true
 
 func spawn_cobweb() -> void:
-	# Create an instance of the 3D model
 	var cobweb_instance = COBWEB_SCENE.instantiate()
-	
-	# Add it to the main scene tree (so it stays in place even if the enemy moves/deletes)
 	get_parent().add_child(cobweb_instance)
-	
-	# Set its position to match the slime
 	cobweb_instance.global_position = global_position
-	
-	# Move down on the Y axis
 	cobweb_instance.position.y -= 0.2
-	
-	# Set scale to (0.2, 0.2, 0.2)
 	cobweb_instance.scale = Vector3(0.2, 0.2, 0.2)
-	
-	# Flip upside down along the Z axis (180 degrees)
 	cobweb_instance.rotation_degrees.z = 180
